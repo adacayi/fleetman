@@ -1,6 +1,6 @@
-FROM tomcat:8.5.47-jdk8-openjdk-slim
+FROM openjdk:8u171-jdk-alpine
+WORKDIR /usr/local/bin
+COPY target/fleetman*.jar fleetman.jar
+CMD ["java","-jar","-Dspring.profiles.active=docker-demo","fleetman.jar"]
 LABEL maintainer="Abdullah Sanver a_sanver@hotmail.com"
-RUN rm -rf webapps/*
-COPY target/fleetman*.war $CATALINA_HOME/webapps/ROOT.war
-ENV JAVA_OPTS="-Dspring.profiles.active=docker-demo"
-CMD ["catalina.sh","run"]
+EXPOSE 8080

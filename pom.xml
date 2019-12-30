@@ -5,8 +5,8 @@
 
 	<groupId>com.virtualpairprogrammers</groupId>
 	<artifactId>fleetman</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
 
 	<name>fleetman</name>
 	<description>VPP's Fleet Management Application</description>
