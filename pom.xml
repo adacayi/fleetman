@@ -5,7 +5,7 @@
 
 	<groupId>com.virtualpairprogrammers</groupId>
 	<artifactId>fleetman</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<packaging>jar</packaging>
 
 	<name>fleetman</name>
@@ -184,6 +184,59 @@
 					<release>8</release>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.31.0</version>
+
+				<configuration>
+					<!-- The line below might be needed for mint linux distribution -->
+					<!--  <dockerHost>http://127.0.0.1:2375</dockerHost> -->
+					<!--  this is for Mac and Amazon Linux -->
+					<!-- <dockerHost>unix:///var/run/docker.sock</dockerHost> -->
+
+					<verbose>true</verbose>
+
+					<images>
+						<image>
+							<name>asanver/fleet</name>
+							<build>
+								<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
+
+								<!--copies Jar to the maven directory (uses Assembly system)-->
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+								<tags>
+									<tag>production</tag>
+								</tags>
+							</build>
+						</image>
+					</images>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>customid</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
 		</plugins>
 		
 		<resources>
