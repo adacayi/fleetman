@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  fleetman:
+    image: asanver/fleet:production
+    ports:
+      - 8080:8080
+    networks:
+      - my-network
+    depends_on:
+      - mysql-server
+
+  mysql-server:
+    image: mysql:5
+    networks:
+      - my-network
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: fleetman
+
+networks:
+  my-network:
